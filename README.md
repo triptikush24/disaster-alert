@@ -7,7 +7,7 @@ Users can report potential disasters by sharing photo or video evidence within a
 
 Once verified:
 
-The admin (e.g., a senior disaster response authority) is notified.
+The admin (e.g., a senior disaster response authority , police, Fire Brigade etc) is notified.
 
 All users are alerted with the exact location of the disaster.
 
@@ -16,6 +16,7 @@ The affected area is marked as a red zone on an interactive map, helping others 
 This system enables community-driven, AI-powered disaster detection and response, ensuring faster alerts and improved public safety.
 
 ( 👇demo link is attached below.)
+ 
 
 # 📌Prequisites:
  | Requirement          | Details / Version                                         |
