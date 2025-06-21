@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Management System - Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .settings-option {
+            margin-bottom: 20px;
+        }
+        .settings-option h3 {
+            margin: 0 0 10px;
+            color: #333;
+        }
+        .settings-option label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .settings-option select, .settings-option input[type="checkbox"], .settings-option button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .settings-option button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .settings-option button:hover {
+            background-color: #0056b3;
+        }
+        .logout-button {
+            background-color: #dc3545;
+        }
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Settings</h1>
+
+        <!-- Language Option -->
+        <div class="settings-option">
+            <h3>Language</h3>
+            <label for="language">Select Language:</label>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+            </select>
+            <button onclick="changeLanguage()">Apply Language</button>
+        </div>
+
+        <!-- Theme Option -->
+        <div class="settings-option">
+            <h3>Theme</h3>
+            <label for="theme">Select Theme:</label>
+            <select id="theme">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+            <button onclick="changeTheme()">Apply Theme</button>
+        </div>
+
+        <!-- Notifications Option -->
+        <div class="settings-option">
+            <h3>Notifications</h3>
+            <label>
+                <input type="checkbox" id="notifications"> Enable Notifications
+            </label>
+            <button onclick="toggleNotifications()">Save Notification Settings</button>
+        </div>
+
+        <!-- Help Option -->
+        <div class="settings-option">
+            <h3>Help</h3>
+            <p>Need assistance? Contact support at <a href="mailto:support@disastermgmt.com">support@disastermgmt.com</a>.</p>
+            <button onclick="openHelp()">Open Help Center</button>
+        </div>
+
+        <!-- Logout Option -->
+        <div class="settings-option">
+            <h3>Logout</h3>
+            <p>Click below to log out of your account.</p>
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Change Language
+        function changeLanguage() {
+            const language = document.getElementById('language').value;
+            alert(`Language changed to: ${language}`);
+            // Add logic to change the language of the application
+        }
+
+        // Change Theme
+        function changeTheme() {
+            const theme = document.getElementById('theme').value;
+            if (theme === 'dark') {
+                document.body.style.backgroundColor = '#333';
+                document.body.style.color = '#fff';
+            } else {
+                document.body.style.backgroundColor = '#f4f4f9';
+                document.body.style.color = '#333';
+            }
+            alert(`Theme changed to: ${theme}`);
+        }
+
+        // Toggle Notifications
+        function toggleNotifications() {
+            const notifications = document.getElementById('notifications').checked;
+            if (notifications) {
+                alert("Notifications enabled!");
+            } else {
+                alert("Notifications disabled!");
+            }
+        }
+
+        // Open Help
+        function openHelp() {
+            window.open('https://www.disastermgmt.com/help', '_blank');
+        }
+
+        // Logout
+        function logout() {
+            alert("You have been logged out.");
+            // Add logic to redirect to the login page
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

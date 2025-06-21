@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark text-white">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card text-dark" style="width: 25rem;">
+            <div class="card-body">
+                <h3 class="card-title text-center">Admin Login</h3>
+                <form id="adminLoginForm" onsubmit="return validateAdminLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Admin Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter Admin Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Admin Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter Admin password">
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-block">Admin Sign In</button>
+                </form>
+                <p class="mt-3 text-center" id="errorMessage" style="color: red;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Predefined admin credentials
+        const adminUser = {
+            email: "admin@example.com",
+            password: "admin123"
+        };
+
+        function validateAdminLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (email === adminUser.email && password === adminUser.password) {
+                // Storing admin info in sessionStorage
+                sessionStorage.setItem('adminUser', JSON.stringify({
+                    email: adminUser.email,
+                    isLoggedIn: true,
+                    isAdmin: true
+                }));
+                // Redirecting to admin map page
+                window.location.href = 'map1.html';
+            } else {
+                errorMessage.textContent = 'Invalid admin credentials. Please try again.';
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

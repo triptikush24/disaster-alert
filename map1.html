@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Map Page</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <nav>
+        <ul>
+            <div class="navbar">
+                <a href="#" onclick="location.href='profile1.html'">Profile</a>
+                <a href="#" onclick="location.href='emergency.html'">Emergency</a>
+                <a href="#" onclick="location.href='setting.html'">Setting</a>
+                <a href="#" onclick="location.href='chat.html'" id="chatBotButton">Group Chat Bot</a> 
+                <a href="#" onclick="location.href='about.html'">About</a>
+            </div>
+            <li><div id="adminMap"></div></li>
+            <button onclick="sendAlert()" style="margin: 20px; padding: 10px;">Send Alert</button>
+        </ul>
+    </nav>
+
+    <div id="map" style="height: 500px; width: 100%;"></div>
+
+    <!-- Chat Box -->
+    <div class="chat-box" id="chatBox">
+        <div class="chat-header">
+            Group Chat Bot
+        </div>
+        <div class="chat-body" id="chatBody">
+            <!-- Chat messages  -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="textInput" placeholder="Type a message...">
+            <label for="fileInput">📷</label>
+            <input type="file" id="fileInput" accept="image/*, video/*">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <style>
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .chat-box {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 20px;
+            width: 300px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .chat-body {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            background-color: white;
+        }
+
+        .chat-footer {
+            padding: 10px;
+            background-color: #f1f1f1;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Set the size of the map */
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+        let map;
+        let adminMarker;
+        let watchId;
+
+        window.onload = function() {
+            const adminUser = JSON.parse(sessionStorage.getItem('adminUser'));
+            if (!adminUser || !adminUser.isLoggedIn) {
+                window.location.href = 'login1.html';
+            }
+        }
+
+        function initMap() {
+            const adminLocation = { lat: -34.397, lng: 150.644 }; // Example coordinates
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: adminLocation
+            });
+            const marker = new google.maps.Marker({
+                position: adminLocation,
+                map: map
+            });
+
+            startLocationTracking();
+        }
+
+        function startLocationTracking() {
+            if (navigator.geolocation) {
+                watchId = navigator.geolocation.watchPosition(
+                    (position) => {
+                        const newLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+                        // Update marker position
+                        if (adminMarker) {
+                            adminMarker.setPosition(newLocation);
+                        }
+
+                        // Update map center
+                        if (map) {
+                            map.setCenter(newLocation);
+                        }
+
+                        // Store updated location in sessionStorage
+                        const adminUser = JSON.parse(sessionStorage.getItem('adminUser'));
+                        adminUser.latitude = newLocation.lat;
+                        adminUser.longitude = newLocation.lng;
+                        sessionStorage.setItem('adminUser', JSON.stringify(adminUser));
+                    },
+                    (error) => {
+                        console.error("Error getting location:", error);
+                        alert("Please enable location services for live tracking");
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 0,
+                        timeout: 5000
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by this browser");
+            }
+        }
+
+        // Chat functionality
+        document.getElementById('chatBotButton').addEventListener('click', function () {
+            const chatBox = document.getElementById('chatBox');
+            if (chatBox.style.display === 'none' || chatBox.style.display === '') {
+                chatBox.style.display = 'block';
+            } else {
+                chatBox.style.display = 'none';
+            }
+        });
+
+        function sendMessage() {
+            const textInput = document.getElementById('textInput');
+            const fileInput = document.getElementById('fileInput');
+            const chatBody = document.getElementById('chatBody');
+
+            if (textInput.value.trim() !== '') {
+                const textMessage = `<div class="message">${textInput.value}</div>`;
+                chatBody.innerHTML += textMessage;
+                textInput.value = '';
+            }
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileType = file.type.split('/')[0];
+
+                if (fileType === 'image' || fileType === 'video') {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const mediaElement = fileType === 'image' 
+                            ? `<img src="${e.target.result}" style="max-width: 100%;">` 
+                            : `<video controls src="${e.target.result}" style="max-width: 100%;"></video>`;
+                        chatBody.innerHTML += `<div class="message">${mediaElement}</div>`;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Please select an image or video file.');
+                }
+                fileInput.value = '';
+            }
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        document.getElementById('textInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendAlert() {
+            alert('Alert sent to all users!');
+        }
+
+        window.onbeforeunload = function() {
+            if (watchId) {
+                navigator.geolocation.clearWatch(watchId);
+            }
+        };
+    </script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2BfI6DfoXPmKFB8T9eUmTNsHAapAt-6E&callback=initMap">
+    </script>
+</body>
+</html>

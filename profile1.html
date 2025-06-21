@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Disaster Management Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .profile-role {
+            font-size: 18px;
+            color: #0077b5;
+            margin: 10px 0;
+        }
+        .profile-bio {
+            font-size: 14px;
+            color: #666;
+            margin: 10px 0;
+        }
+        .emergency-contact {
+            font-size: 16px;
+            color: #ff0000;
+            margin: 10px 0;
+        }
+        .action-buttons {
+            margin: 20px 0;
+        }
+        .action-buttons button {
+            background-color: #0077b5;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .action-buttons button:hover {
+            background-color: #005f8a;
+        }
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .social-links a:hover {
+            color: #0077b5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <!-- Profile Picture -->
+        <img src="user1.jpg" alt="Profile Picture" class="profile-img">
+        
+        <!-- User Name -->
+        <div class="profile-name">Admin</div>
+        
+        <!-- User Role -->
+        <div class="profile-role">information reciver </div>
+        
+        <!-- User Bio -->
+        <div class="profile-bio">
+            One step toward serving the people.
+        </div>
+        
+        <!-- Emergency Contact -->
+        <div class="emergency-contact">
+            Emergency Contact: +1-234-567-890
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button onclick="alert('Report Fire Incident')">Report Fire Incident</button>
+            <button onclick="alert('View Emergency Resources')">Emergency Resources</button>
+            <button onclick="alert('Contact Team')">Contact Team</button>
+        </div>
+        
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="https://twitter.com/admin" target="_blank">Twitter</a>
+            <a href="https://facebook.com/in/admin" target="_blank">Facebook</a>
+            <a href="https://instagram.com/admin" target="_blank">Instagram</a>
+        </div>
+    </div>
+
+</body>
+</html>

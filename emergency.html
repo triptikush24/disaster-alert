@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Disaster Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .emergency-list {
+            margin-bottom: 20px;
+        }
+        .emergency-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .emergency-item h3 {
+            margin: 0 0 10px;
+            color: #333;
+        }
+        .emergency-item p {
+            margin: 5px 0;
+        }
+        .report-form {
+            margin-top: 20px;
+        }
+        .report-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .report-form select, .report-form input, .report-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .report-form button {
+            padding: 10px 20px;
+            background-color: #dc3545; /* Red color for fire emergencies */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .report-form button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fire Disaster Management System</h1>
+
+        <!-- List of 7 Fire-Related Emergencies -->
+        <div class="emergency-list">
+            <div class="emergency-item">
+                <h3>1. Building Fire</h3>
+                <p><strong>Description:</strong> Fire in residential or commercial buildings.</p>
+                <p><strong>Action:</strong> Evacuate immediately and call the fire department.</p>
+            </div>
+            <div class="emergency-item">
+                <h3>2. Forest Fire</h3>
+                <p><strong>Description:</strong> Uncontrolled fire in a forest or wildland area.</p>
+                <p><strong>Action:</strong> Report to authorities and avoid the area.</p>
+            </div>
+            <div class="emergency-item">
+                <h3>3. Vehicle Fire</h3>
+                <p><strong>Description:</strong> Fire in cars, trucks, or other vehicles.</p>
+                <p><strong>Action:</strong> Exit the vehicle and move to a safe distance.</p>
+            </div>
+            <div class="emergency-item">
+                <h3>4. Industrial Fire</h3>
+                <p><strong>Description:</strong> Fire in factories or industrial facilities.</p>
+                <p><strong>Action:</strong> Follow evacuation protocols and alert emergency services.</p>
+            </div>
+            <div class="emergency-item">
+                <h3>5. Electrical Fire</h3>
+                <p><strong>Description:</strong> Fire caused by electrical faults or overloads.</p>
+                <p><strong>Action:</strong> Turn off power and use a fire extinguisher if safe.</p>
+            </div>
+            <div class="emergency-item">
+                <h3>6. Chemical Fire</h3>
+                <p><strong>Description:</strong> Fire involving hazardous chemicals.</p>
+                <p><strong>Action:</strong> Evacuate and avoid inhaling fumes.</p>
+            </div>
+            <div class="emergency-item">
+                <h3>7. Kitchen Fire</h3>
+                <p><strong>Description:</strong> Fire caused by cooking accidents.</p>
+                <p><strong>Action:</strong> Use a fire extinguisher or cover with a lid to smother flames.</p>
+            </div>
+        </div>
+
+        <!-- Fire Emergency Reporting Form -->
+        <div class="report-form">
+            <h2>Report a Fire Emergency</h2>
+            <label for="emergency-type">Emergency Type:</label>
+            <select id="emergency-type">
+                <option value="Building Fire">Building Fire</option>
+                <option value="Forest Fire">Forest Fire</option>
+                <option value="Vehicle Fire">Vehicle Fire</option>
+                <option value="Industrial Fire">Industrial Fire</option>
+                <option value="Electrical Fire">Electrical Fire</option>
+                <option value="Chemical Fire">Chemical Fire</option>
+                <option value="Kitchen Fire">Kitchen Fire</option>
+            </select>
+            <label for="location">Location:</label>
+            <input type="text" id="location" placeholder="Enter location">
+            <label for="severity">Severity:</label>
+            <select id="severity">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <label for="description">Description:</label>
+            <textarea id="description" rows="4" placeholder="Enter emergency description"></textarea>
+            <button onclick="reportEmergency()">Report Emergency</button>
+        </div>
+
+        <!-- Reported Emergencies List -->
+        <div class="emergency-list">
+            <h2>Reported Fire Emergencies</h2>
+            <div id="reported-emergencies"></div>
+        </div>
+    </div>
+
+    <script>
+        let emergencies = [];
+
+        function reportEmergency() {
+            const type = document.getElementById('emergency-type').value;
+            const location = document.getElementById('location').value;
+            const severity = document.getElementById('severity').value;
+            const description = document.getElementById('description').value;
+
+            if (!type || !location || !severity || !description) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            const emergency = {
+                id: emergencies.length + 1,
+                type: type,
+                location: location,
+                severity: severity,
+                description: description,
+                status: "Reported"
+            };
+
+            emergencies.push(emergency);
+            displayEmergencies();
+            alert("Fire emergency reported successfully!");
+        }
+
+        function displayEmergencies() {
+            const reportedEmergencies = document.getElementById('reported-emergencies');
+            reportedEmergencies.innerHTML = "";
+
+            emergencies.forEach(emergency => {
+                const emergencyItem = document.createElement('div');
+                emergencyItem.className = 'emergency-item';
+                emergencyItem.innerHTML = `
+                    <h3>Emergency ID: ${emergency.id}</h3>
+                    <p><strong>Type:</strong> ${emergency.type}</p>
+                    <p><strong>Location:</strong> ${emergency.location}</p>
+                    <p><strong>Severity:</strong> ${emergency.severity}</p>
+                    <p><strong>Description:</strong> ${emergency.description}</p>
+                    <p><strong>Status:</strong> ${emergency.status}</p>
+                `;
+                reportedEmergencies.appendChild(emergencyItem);
+            });
+        }
+    </script>
+</body>
+</html>
