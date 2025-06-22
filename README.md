@@ -42,6 +42,17 @@ https://github.com/user-attachments/assets/383832eb-90a1-4275-a4cc-307ad2475055
 
 **ML Model :** Python 3x
 
+## 📌Features:
+
+💠Real-time disaster reporting via group chat
+
+💠Media-based disaster proof submission
+
+💠ML model integration for automatic disaster verification
+
+💠Admin alerts and broadcast notifications
+
+💠Risk zone detection on live map (red zones)
 
 ## 📌How to run :
 
