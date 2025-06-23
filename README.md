@@ -29,7 +29,7 @@ https://github.com/user-attachments/assets/383832eb-90a1-4275-a4cc-307ad2475055
 | **npm**              | `v6+` (comes bundled with Node.js)                        |
 | **Python**           | `3.x`                                                     |
 | **Python Packages**  | `torch`, `numpy`, `pillow`                                |
-| **Node.js Packages** | `express`, `socket.io`, `multer`                          |
+| **Node.js Packages** | `express`, `socket.io`,                           |
 | **ML Model File**    | `model/model3.pkl` (required for disaster detection)      |
 | **Web Browser**      | Latest version of **Chrome**, **Firefox**, **Edge**, etc. |
 
